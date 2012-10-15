@@ -8,10 +8,8 @@
 
 using namespace std;
 #include "Defines.h"
+#include "Output.h"
 #include "Map.h"
-
-
-
 
 
 

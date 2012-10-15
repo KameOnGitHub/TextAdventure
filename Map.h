@@ -21,8 +21,14 @@ width: the width in characters.
 objects: a 2d vector of chars whose size is specified by height and width
 ----------------
 
+Map File Specification:
+Header Information: The first line should contian information about the map, delimited by ';'. Values should include the map's name, width, and height. 
+Map Data: 
+	- Character Shape
+	- Character Color
 
-Last Edited 13/10/2012
+----------------
+Last Edited 14/10/2012
 --------------------------------
 */
 
@@ -41,19 +47,14 @@ public:
 	void loadFromFile(std::string filename){
 		//Declarations
 		string currentLine;
-		ifstream file("Maps/"+filename, ios::in|ios::binary);//open file for reading
-		//std::vector<char> lineVector; //create 1d vector to use to build 2d vector
+		ifstream file("Maps/"+filename/*, ios::in|ios::binary*/);//open file for reading		
 		//Remove old data.
 		height = width = 0; //reset map size
 		stringVector.erase(stringVector.begin(), stringVector.end()); //erase whatever was already in the map
-		stringVector.resize(100);//100 seems like a safe amount for now
 		//--------
 		while(file.good()){
 			getline(file, currentLine);
 			stringVector.push_back(currentLine);
-			cout<<currentLine<<endl;//temp debug
-			//cout<<stringVector.at(height);
-			//objects.append(currentLine); //assign the current line to the objects string
 			++height;//show height has increased by one
 		}
 		width = currentLine.size();// the last line will have the true width as long as there isn't a CRLF
@@ -63,7 +64,7 @@ public:
 
 	void display(){
 		for (int x = 0; x < height; x++){
-				cout<<stringVector.at(x);
+				cout<<stringVector.at(x)<<endl;
 		}
 	}
 
