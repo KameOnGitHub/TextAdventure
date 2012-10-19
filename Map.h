@@ -117,6 +117,7 @@ public:
 		file.close();
 	}
 
+
 /*	void saveToFile(std::string filename){
 		ifstream file("TestMaps/"+filename);
 		for(int x = 0; x < height; x++){
