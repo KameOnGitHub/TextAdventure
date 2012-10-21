@@ -17,7 +17,7 @@ public:
 		//Local variables
 		string currentLineS;
 		vector<CHAR_INFO> currentLineV;
-		CHAR_INFO currentChar;
+		char currentChar;
 		int semicolonPosition;
 		ifstream file("maps/"+filename);
 
@@ -31,27 +31,41 @@ public:
 		width = strToInt(currentLineS.substr(++semicolonPosition));
 		
 		//Read body
+		int debug = 0;
 		vvPixel.resize(height);//set the outer array to the height.
-		for(int y = 0; y < 3 * height; y++){
+		for(int f = 0; f < 3; f++){
+
+			for(int y = 0; y < height; y++){
 			
-			getline(file, currentLineS);
-			vvPixel[y].resize(width);//make each line *width CHAR_INFO wide
-			
-			for (int x = 0; x<width; x++){
-				if (y < height){// if this line is from the first third of the file
-				vvPixel[y][x].Char = currentLineS[x];
-				}
-				else if (y >= height && y < 2*height){//if this line is from the second third of the file (foreground attribute)
-				vvPixel[y][x].Attributes = lookupColor(currentLineS[x]);
-				}
-				else if (y >= 2*height){//if this line is from the final third
-				vvPixel[y][x].Attributes = (vvPixel[y][x].Attributes<<4) + lookupColor(currentLineS[x]);
+				getline(file, currentLineS);
+				vvPixel[y].resize(width);
+				++debug;
+				for (int x = 0; x<width; x++){
+					if (x  == 0){++debug;}//make each line *width CHAR_INFO wide
+					if (f == 0){// if this line is from the first third of the file
+					vvPixel[y][x].Char.AsciiChar = currentLineS[x];
+					}
+					else if (f == 1){//if this line is from the second third of the file (foreground attribute)
+					vvPixel[y][x].Attributes = lookupColor(currentLineS[x])<<4;
+					}
+					else if (f == 2){//if this line is from the final third
+					vvPixel[y][x].Attributes = vvPixel[y][x].Attributes + lookupColor(currentLineS[x]);
+					}
+					currentChar = currentLineS[x];
 				}
 			}
 		}
-
 		//Close File
 		file.close();
 	}
 
-
+	vector<vector<CHAR_INFO> > get_vvPixel(){
+		return vvPixel;
+	}
+	int get_width(){
+		return width;
+	}
+	int get_height(){
+		return height;
+	}
+};

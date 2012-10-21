@@ -84,7 +84,7 @@ public:
 	void generateColorNoise(){//This'll store random colors in each member of outputchar. 
 	for(int y = 0; y < windowHeight; y++){
 		for(int x = 0; x< windowWidth; x++){
-			outputBuffer[ x + windowWidth * y].Char.AsciiChar = (unsigned char)200;//was 219, change bacak when this is fixed.
+			outputBuffer[ x + windowWidth * y].Char.AsciiChar = (unsigned char)' ';//was 219, change bacak when this is fixed.
 			outputBuffer[ x + windowWidth * y].Attributes = rand() % 256;
 		}
 	}
