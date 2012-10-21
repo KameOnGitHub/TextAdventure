@@ -71,6 +71,16 @@ public:
 		WriteConsoleOutputA(writeHandle, &outputBuffer[0], bufferSize, characterPosition, &consoleWriteArea);
 	}
 
+	void addToBuffer(vector<vector<CHAR_INFO> > input, int yOffset, int xOffset, int inputHeight, int inputWidth){
+		int lastY = yOffset + inputHeight;
+		int lastX = xOffset + inputWidth;
+		for (int y = 0; y < inputHeight; y++){
+			for (int x = 0; x < inputWidth; x++){
+				outputBuffer[(x+xOffset)+windowWidth*(y+yOffset)] = input[y][x];
+			}
+		}
+	}
+
 	void generateColorNoise(){//This'll store random colors in each member of outputchar. 
 	for(int y = 0; y < windowHeight; y++){
 		for(int x = 0; x< windowWidth; x++){
